@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, PlayCircle, CheckCircle, Star, Phone, Package, DollarSign, Users, TrendingUp, Recycle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import Hero3D from "@/components/Hero3D";
+import heroImage from "@/assets/hero-banner.jpg";
 
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -117,9 +117,12 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* 3D Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5">
-          <Hero3D />
+        {/* Hero Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/70 to-primary/20" />
         </div>
         
         {/* Hero Content */}
@@ -134,7 +137,7 @@ const Index = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center hero-slide-up">
               <Link to="/book-pickup">
-                <Button size="lg" className="btn-gradient text-lg px-8 py-4 h-auto">
+                <Button size="lg" className="btn-gradient text-lg px-8 py-4 h-auto animate-pulse-glow">
                   Book Pickup Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
