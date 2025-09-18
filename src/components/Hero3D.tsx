@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useLayoutEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,9 +16,10 @@ const CircularArrow = ({
   rotationSpeed?: number;
 }) => {
   const meshRef = useRef<THREE.Group>(null);
+  const geometryRef = useRef<THREE.BufferGeometry>(null);
 
-  // Create circular arrow geometry
-  const { pathGeometry, arrowHeadGeometry } = useMemo(() => {
+  // Create circular path points
+  const points = useMemo(() => {
     const curve = new THREE.EllipseCurve(
       0, 0,
       radius, radius,
@@ -26,14 +27,20 @@ const CircularArrow = ({
       false,
       0
     );
-
-    const points = curve.getPoints(64);
-    const pathGeometry = new THREE.BufferGeometry().setFromPoints(points);
-    
-    const arrowHeadGeometry = new THREE.ConeGeometry(0.15, 0.4, 8);
-    
-    return { pathGeometry, arrowHeadGeometry };
+    return curve.getPoints(64);
   }, [radius]);
+
+  // Create arrow head geometry
+  const arrowHeadGeometry = useMemo(() => {
+    return new THREE.ConeGeometry(0.15, 0.4, 8);
+  }, []);
+
+  // Set points on the geometry after it's created
+  useLayoutEffect(() => {
+    if (geometryRef.current) {
+      geometryRef.current.setFromPoints(points);
+    }
+  }, [points]);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -45,7 +52,7 @@ const CircularArrow = ({
     <group ref={meshRef} position={position}>
       {/* Circular path */}
       <line>
-        <primitive object={pathGeometry} attach="geometry" />
+        <bufferGeometry ref={geometryRef} attach="geometry" />
         <lineBasicMaterial attach="material" color={color} linewidth={3} />
       </line>
       
@@ -71,9 +78,9 @@ const CircularArrow = ({
 // Particle system for transformation effect
 const Particles = () => {
   const pointsRef = useRef<THREE.Points>(null);
+  const geometryRef = useRef<THREE.BufferGeometry>(null);
   
-  const particlesGeometry = useMemo(() => {
-    const geometry = new THREE.BufferGeometry();
+  const positions = useMemo(() => {
     const positions = new Float32Array(100 * 3);
     
     for (let i = 0; i < 100; i++) {
@@ -82,9 +89,14 @@ const Particles = () => {
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
     }
     
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    return geometry;
+    return positions;
   }, []);
+
+  useLayoutEffect(() => {
+    if (geometryRef.current) {
+      geometryRef.current.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    }
+  }, [positions]);
 
   useFrame((state) => {
     if (pointsRef.current) {
@@ -95,7 +107,7 @@ const Particles = () => {
 
   return (
     <points ref={pointsRef}>
-      <primitive object={particlesGeometry} attach="geometry" />
+      <bufferGeometry ref={geometryRef} attach="geometry" />
       <pointsMaterial
         attach="material"
         color="#10b981"
