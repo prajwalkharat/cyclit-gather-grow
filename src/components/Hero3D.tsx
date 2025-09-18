@@ -53,7 +53,7 @@ const CircularArrow = ({
       {/* Circular path */}
       <line>
         <bufferGeometry ref={geometryRef} attach="geometry" />
-        <lineBasicMaterial attach="material" color={color} linewidth={3} />
+        <lineBasicMaterial attach="material" color={color} />
       </line>
       
       {/* Arrow heads */}
