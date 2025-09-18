@@ -2,39 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Cyclit Design System - Circular Economy Theme
+All colors MUST be HSL for consistent theming.
+Primary: Emerald green for sustainability focus
+Secondary: Charcoal for trust and professionalism
 */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 213 27% 24%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 213 27% 24%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 213 27% 24%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Cyclit Brand Colors */
+    --primary: 158 64% 52%; /* Emerald green #10b981 */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 158 64% 62%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 213 27% 24%; /* Charcoal #374151 */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --success: 142 76% 36%; /* Green #22c55e */
+    --success-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --warning: 38 92% 50%; /* Amber #f59e0b */
+    --warning-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%; /* Red #ef4444 */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 158 64% 52%;
+
+    /* Cyclit Custom Design Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary) / 0.8));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(142 76% 46%));
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(var(--secondary) / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
@@ -56,33 +78,43 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 213 27% 24%;
+    --foreground: 0 0% 100%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 213 27% 24%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 213 27% 24%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 158 64% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 158 64% 62%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 217 32% 18%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 213 27% 24%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --muted: 217 32% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 217 32% 18%;
+    --input: 217 32% 18%;
+    --ring: 158 64% 52%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--background) / 0.8));
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +132,125 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Hero section animations */
+  .hero-fade-in {
+    animation: heroFadeIn 1s ease-out forwards;
+  }
+
+  .hero-slide-up {
+    animation: heroSlideUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Material category cards */
+  .material-card {
+    @apply bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:-translate-y-1;
+  }
+
+  /* Impact counter animation */
+  .counter-animate {
+    animation: countUp 2s ease-out forwards;
+  }
+
+  /* Testimonial carousel */
+  .testimonial-slide {
+    @apply opacity-0 transform translate-x-full transition-all duration-500;
+  }
+
+  .testimonial-slide.active {
+    @apply opacity-100 transform translate-x-0;
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-enter {
+    animation: slideInFromTop 0.3s ease-out forwards;
+  }
+
+  .mobile-menu-exit {
+    animation: slideOutToTop 0.3s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-gradient {
+    background: var(--gradient-primary);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-gradient:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .card-elegant {
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+
+  .card-elegant:hover {
+    box-shadow: var(--shadow-elegant);
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutToTop {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }
